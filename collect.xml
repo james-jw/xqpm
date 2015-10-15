@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Represents an example xq-ant collect file -->
+<config>
+  <project>
+    <name>Sample</name>
+    <template></template>
+  </project>
+  <dependencies>
+     <directory path="../../repo">
+        <dependency git-path="https://github.com/james-jw/xq-bootstrap" />
+     </directory>
+     <directory path="../static/js/">
+        <dependency path="http://knockoutjs.com/downloads/knockout-3.3.0.js" />
+        <dependency path="https://jsonpath.googlecode.com/files/jsonpath-0.5.1.cs" />
+     </directory>
+  </dependencies>
+</config>
