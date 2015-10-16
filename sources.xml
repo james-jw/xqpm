@@ -5,7 +5,7 @@
     <source name="jsonpath.js" path="https://jsonpath.googlecode.com/files/jsonpath-0.5.1.cs" />
     <source name="knockout.js" path="http://knockoutjs.com/downloads/knockout-3.3.0.js" />
     <source name="knockout-mappings.js" path="https://raw.githubusercontent.com/SteveSanderson/knockout.mapping/master/build/output/knockout.mapping-latest.js" />
-    <source name="jquery.js" path="http://code.jquery.com/jquery-{$version}.min.js" version="1.11.3" />
+    <source name="jquery.js" path="http://code.jquery.com/jquery-1.11.3.min.js" />
     <source name="fuse.js" path="https://raw.githubusercontent.com/krisk/fuse/master/src/fuse.min.js" />
     <source name="moment.js" path="http://momentjs.com/downloads/moment.js" />
     <source name="hashchange.js" path="https://raw.githubusercontent.com/cowboy/jquery-hashchange/master/jquery.ba-hashchange.min.js" />
