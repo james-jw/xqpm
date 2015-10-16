@@ -2,9 +2,6 @@
 <!-- Represents an example xq-ant collect file -->
 <config>
   <sources url="https://raw.githubusercontent.com/james-jw/xq-ant/master/sources.xml" />
-  <project>
-    <name>Sample</name>
-  </project>
   <dependencies>
      <directory path="../../repo">
         <dependency name="xq-bootstrap" />
