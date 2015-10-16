@@ -18,8 +18,7 @@
  :
  :)
 declare function local:retrieve-git-sources($git as element(git-source)) {
-  let $req := <http:request method="GET" override-media-type="text/plain" />
-  for $repo in  parse-json(http:send-request($req, $git/@path)[2])?*  
+  for $repo in json-doc($git/@path)?*  
   where $repo?name and $repo?clone_url
   return
     <source name="{$repo?name}" type="git" path="{$repo?clone_url}" />
