@@ -50,25 +50,21 @@ declare function local:process-dependencies($config as document-node()) {
      for $dep in $directory/dependency 
      let $path := data(($dep/@path, $sources[@name = $dep/@name]/@path)[1]) 
      let $type := $sources[@name = $dep/@name]/@type
-     let $result := try {
+     return try {
         if($type = 'git') then
           prof:void(proc:system("git", ("clone", $path, $dir-path || trace($dep/@name))))
         else ( 
               if(fetch:content-type(trace($path)) = 'application/zip') then (
                 let $file := file:temp-dir() || $dep/@name
                 return (file:write-binary($file, fetch:binary($path)),
-                        prof:void(proc:system("unzip", ($file, '-d', $dir-path)))))
-              else if($path) then fetch:text($path) 
+                        prof:void(proc:system("unzip", ('-o', $file, '-d', $dir-path)))))
+              else if($path) then
+                file:write($dir-path || '/' || $dep/@name, fetch:text($path)) 
               else trace("Failed to find dependency: " || $dep/@name)
         )
       } catch * {
         prof:void(trace($dep, $err:description))
       }
-     return
-       if($result) then 
-         try { file:write($dir-path || '/' || $dep/@name, $result) }
-         catch * { trace('Failed to writing dependency: ' || $dep/@name, $result) }
-       else ()
     )
 };
 
