@@ -11,5 +11,5 @@
     <source name="hashchange.js" path="https://raw.githubusercontent.com/cowboy/jquery-hashchange/master/jquery.ba-hashchange.min.js" />
     <source name="jquery.localstorage.js" path="https://raw.githubusercontent.com/yckart/jquery.storage.js/master/jquery.storage.js" />
     <source name="mustache.js" path="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.min.js" />
-    <source name="tether.js" path="http://github.com/HubSpot/tether/archive/v1.1.1.zip" />
+    <source name="tether.js" path="https://codeload.github.com/HubSpot/tether/zip/v1.1.1" />
 </sources>
