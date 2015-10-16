@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Master list of dependencies -->
+<sources>
+    <git-source path="https://api.github.com/users/james-jw/repos" />
+    <source name="jsonpath.js" path="https://jsonpath.googlecode.com/files/jsonpath-0.5.1.cs" />
+    <source name="knockout.js" path="http://knockoutjs.com/downloads/knockout-3.3.0.js" />
+    <source name="knockout-mappings.js" path="https://raw.githubusercontent.com/SteveSanderson/knockout.mapping/master/build/output/knockout.mapping-latest.js" />
+    <source name="jquery.js" path="http://code.jquery.com/jquery-{$version}.min.js" version="1.11.3" />
+    <source name="fuse.js" path="https://raw.githubusercontent.com/krisk/fuse/master/src/fuse.min.js" />
+    <source name="moment.js" path="http://momentjs.com/downloads/moment.js" />
+    <source name="hashchange.js" path="https://raw.githubusercontent.com/cowboy/jquery-hashchange/master/jquery.ba-hashchange.min.js" />
+    <source name="jquery.localstorage.js" path="https://raw.githubusercontent.com/yckart/jquery.storage.js/master/jquery.storage.js" />
+    <source name="mustache.js" path="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.min.js" />
+    <source name="tether.js" path="http://github.com/HubSpot/tether/archive/v1.1.1.zip" />
+</sources>

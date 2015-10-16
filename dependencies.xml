@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- Master list of dependencies -->
-<dependencies>
-    <dependency name="jsonpath" path="https://jsonpath.googlecode.com/files/jsonpath-0.5.1.cs" />
-    <dependency name="knockout path="" />
-</dependencies>
