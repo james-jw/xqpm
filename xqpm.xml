@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Represents an example xq-ant collect file -->
+<config>
+  <sources url="https://raw.githubusercontent.com/james-jw/xq-ant/master/sources.xml" />
+  <dependencies>
+    <directory path="{{repo}}">
+      <dependency name="xq-ant" />
+    </directory>
+    <directory path="{{base}}/bin">
+      <dependency name="xqpm" path="https://raw.githubusercontent.com/james-jw/xq-ant/master/src/xqpm" />
+    </directory>
+  </dependencies>
+</config>

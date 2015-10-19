@@ -12,4 +12,6 @@
     <source name="jquery.localstorage.js" path="https://raw.githubusercontent.com/yckart/jquery.storage.js/master/jquery.storage.js" />
     <source name="mustache.js" path="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.min.js" />
     <source name="tether.js" path="https://codeload.github.com/HubSpot/tether/zip/v1.1.1" />
+    <source name="bootstrap-4.js" path="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+    <source name="bootstrap-4.css" path="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js" />
 </sources>
