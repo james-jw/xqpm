@@ -22,7 +22,22 @@ import module namespace mustache = 'http://xq-mustache'
    at 'https://raw.githubusercontent.com/james-jw/xq-mustache/master/src/xq-mustache.xqm';  
 
 declare variable $local:config-name := 'xqpm.xml';
-declare variable $local:user-config := '~/.' || $local:config-name;
+declare variable $local:user-config := fn:environment-variable('HOME') || '/.' || $local:config-name;
+declare variable $local:user-config-template := function ($base-dir) {
+  <config>
+    <params>
+      <param name="home">{fn:environment-variable('HOME')}</param>
+      <param name="base">{$base-dir}</param>
+      <param name="repo">{{{{base}}}}/repo</param>
+      <param name="lib">{{{{base}}}}/lib</param>
+      <param name="webapp">{{{{base}}}}/webapp</param>
+      <param name="static">{{{{webapp}}}}</param>
+      <param name="js">{{{{static}}}}/js</param>
+      <param name="css">{{{{static}}}}/css</param>
+      <param name="fonts">{{{{static}}}}/fonts</param>
+    </params>
+  </config>
+};
 
 declare %private function local:retrieve-git-sources($git as element(git-source)) {
   for $repo in json-doc($git/@path)?*  
@@ -45,10 +60,10 @@ declare function local:expand-params($params as map(*)) as map(*) {
     else $out
 };
 
-declare %private function local:process-params($config as document-node(), $user-config as document-node()?) {
+declare function local:process-params($config as document-node(), $user-config as document-node()?) {
   let $map := map:merge( (
-    for $param in ($config, trace($user-config, 'user config '))/config/params/param
-      return map { data($param/@name): $param/text() },
+    for $param in ($config, $user-config)/config/params/param
+      return map { data($param/@name): data($param) },
       map { 'current-dir': file:current-dir() }
   ))
   return
@@ -68,16 +83,29 @@ declare function local:retrieve-sources($config as document-node(), $user-config
 };
 
 declare function local:process-dependencies($config as document-node()) {
-  let $user-config := if(file:exists($local:user-config)) 
-                      then doc($local:user-config)
-                      else ()
+  local:process-dependencies($config, ())
+};
+
+declare function local:process-dependencies($config as document-node(), $base-dir as xs:string?) {
+  let $user-config := 
+    if(file:exists($local:user-config)) 
+    then file:read-text($local:user-config) => parse-xml() 
+    else if(boolean($base-dir)) then 
+      let $template := $local:user-config-template($base-dir)
+      return        
+        file:write($local:user-config, $template) 
+    else 
+      trace((), 'Either no user config found at ' || $local:user-config || ' or base param not defined.')
   let $sources := local:retrieve-sources($config, $user-config) 
   let $params := local:process-params($config, $user-config) 
   return
-    local:process-dependencies($config, $params, $sources)
+    if($user-config) then 
+      local:process-dependencies($config, $params, $sources)
+    else 
+      local:process-dependencies($config, ())
 };
 
-declare function local:process-dependencies($config as document-node(), $params as map(*), $sources as item()*) {
+declare %private function local:process-dependencies($config as document-node(), $params as map(*), $sources as item()*) {
   let $sources := ($sources, $config/source)
   for $directory in $config//dependencies/directory
   let $dir-path := trace(mustache:render($directory/@path, $params), 'Processing directory: ')
