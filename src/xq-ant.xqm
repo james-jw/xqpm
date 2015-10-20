@@ -18,8 +18,7 @@
  :
  :)
 module namespace local = 'http://xq-ant';
-import module namespace mustache = 'http://xq-mustache'
-   at 'https://raw.githubusercontent.com/james-jw/xq-mustache/master/src/xq-mustache.xqm';  
+import module namespace mustache = 'http://xq-mustache';
 
 declare variable $local:config-name := 'xqpm.xml';
 declare variable $local:user-config := fn:environment-variable('HOME') || '/.' || $local:config-name;
