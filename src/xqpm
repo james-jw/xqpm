@@ -1,1 +1,1 @@
-basex -q 'import module namespace xqpm = "http://xq-ant" at "https://raw.githubusercontent.com/james-jw/xq-ant/master/src/xq-ant.xqm"; let $path := file:current-dir() || $xqpm:config-name return if(file:exists($path)) then xqpm:process-dependencies(doc($path)) else "Package file " || $path || " not found."'
+basex -q 'import module namespace xqpm = "http://xq-ant"; let $path := file:current-dir() || $xqpm:config-name return if(file:exists($path)) then xqpm:process-dependencies(doc($path)) else "Package file " || $path || " not found."'

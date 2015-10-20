@@ -5,6 +5,9 @@
   <dependencies>
     <directory path="{{repo}}">
       <dependency name="xq-ant" />
+      <dependency name="xqpm-install" type="command" path="basex">
+        <argument>-c"repo install '{{repo}}/xq-ant/src/xq-ant.xqm'"</argument>
+      </dependency>
       <dependency name="xq-mustache" />
     </directory>
     <directory path="{{base}}/bin">

@@ -31,7 +31,7 @@ declare variable $local:user-config-template := function ($base-dir) {
       <param name="repo">{{{{base}}}}/repo</param>
       <param name="lib">{{{{base}}}}/lib</param>
       <param name="webapp">{{{{base}}}}/webapp</param>
-      <param name="static">{{{{webapp}}}}</param>
+      <param name="static">{{{{webapp}}}}/static</param>
       <param name="js">{{{{static}}}}/js</param>
       <param name="css">{{{{static}}}}/css</param>
       <param name="fonts">{{{{static}}}}/fonts</param>
@@ -112,11 +112,18 @@ declare %private function local:process-dependencies($config as document-node(),
   return
     (local:create-directories($dir-path),
      for $dep in $directory/dependency 
-     let $name := $dep/@name
-     let $path := trace(data(($dep/@path, $sources[@name = $name]/@path)[1]), 'Retrieving ' || $name || ' from: ') 
+     let $name := trace($dep/@name, 'Processing: ')
+     let $path := data(($dep/@path, $sources[@name = $name]/@path)[1])
      let $type := (($sources[@name = $name],$dep)/@type)[1]
      return try {
-        if($type = 'git') then
+        if($type = 'command') then (
+          let $arguments := $dep/argument ! mustache:render(., $params)
+          return
+            (
+              trace((), 'Executing ' || ($dep/@path, $arguments) => string-join(' ')),
+              trace(proc:system($dep/@path, $arguments))
+            )
+        ) else if($type = 'git') then
           let $dest := $dir-path || '/' || $name || '/' return
           (
             proc:system("git", ("clone", $path, $dest )),
