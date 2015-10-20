@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- Represents an example xq-ant collect file -->
+<!-- Represents an example xqpm collect file -->
 <config>
-  <sources url="https://raw.githubusercontent.com/james-jw/xq-ant/master/sources.xml" />
+  <sources url="https://raw.githubusercontent.com/james-jw/xqpm/master/sources.xml" />
   <dependencies>
     <directory path="{{repo}}">
-      <dependency name="xq-ant" />
+      <dependency name="xqpm" />
       <dependency name="xqpm-install" type="command" path="{{base}}/bin/basex">
-        <argument>-c"repo install '{{repo}}/xq-ant/src/xq-ant.xqm'"</argument>
+        <argument>-c"repo install '{{repo}}/xqpm/src/xqpm.xqm'"</argument>
       </dependency>
       <dependency name="xq-mustache" />
     </directory>
     <directory path="/usr/bin">
-      <dependency name="xqpm" path="https://raw.githubusercontent.com/james-jw/xq-ant/master/src/xqpm" />
+      <dependency name="xqpm" path="https://raw.githubusercontent.com/james-jw/xqpm/master/src/xqpm" />
     </directory>
   </dependencies>
 </config>
