@@ -18,7 +18,7 @@
  :
  :)
 module namespace local = 'http://xq-ant';
-import module namespace mustache = 'http://xq-mustache';
+import module namespace mustache = 'http://xq-mustache' at 'https://raw.githubusercontent.com/james-jw/xq-mustache/master/src/xq-mustache.xqm';
 
 declare variable $local:config-name := 'xqpm.xml';
 declare variable $local:user-config := fn:environment-variable('HOME') || '/.' || $local:config-name;
@@ -112,11 +112,11 @@ declare %private function local:process-dependencies($config as document-node(),
     (local:create-directories($dir-path),
      for $dep in $directory/dependency 
      let $name := trace($dep/@name, 'Processing: ')
-     let $path := data(($dep/@path, $sources[@name = $name]/@path)[1])
+     let $path := ($dep/@path, $sources[@name = $name]/@path)[1] => mustache:render($params)
      let $type := (($sources[@name = $name],$dep)/@type)[1]
      return try {
         if($type = 'command') then (
-          local:execute-command($dep)
+          local:execute-command($dep, $params)
         ) else if($type = 'git') then
           let $dest := $dir-path || '/' || $name || '/' return
           (
@@ -144,7 +144,7 @@ declare %private function local:process-dependencies($config as document-node(),
       }
     )
 };
-declare %private function local:execute-command($dep as element(dependency)) {
+declare %private function local:execute-command($dep as element(dependency), $params as map(*)) {
   let $arguments := $dep/argument ! mustache:render(., $params)
   return
     (
