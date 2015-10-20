@@ -59,7 +59,7 @@ declare function local:expand-params($params as map(*)) as map(*) {
     else $out
 };
 
-declare function local:process-params($config as document-node(), $user-config as document-node()?) {
+declare function local:process-params($config as document-node()?, $user-config as document-node()?) {
   let $map := map:merge( (
     for $param in ($config, $user-config)/config/params/param
       return map { data($param/@name): data($param) },
@@ -69,7 +69,7 @@ declare function local:process-params($config as document-node(), $user-config a
     local:expand-params($map)
  };
 
-declare function local:retrieve-sources($config as document-node(), $user-config as document-node()?) {
+declare function local:retrieve-sources($config as document-node()?, $user-config as document-node()?) {
   let $config := ($config, $user-config) return
   for $source in $config/config/sources
   let $out := doc($source/@url)   
@@ -81,30 +81,45 @@ declare function local:retrieve-sources($config as document-node(), $user-config
     )
 };
 
-declare function local:process-dependencies($config as document-node()) {
-  local:process-dependencies($config, ())
+declare function local:retrieve-user-config($base-dir as xs:string?) {
+  if(file:exists($local:user-config)) 
+  then file:read-text($local:user-config) => parse-xml() 
+  else if(boolean($base-dir)) then 
+    let $template := $local:user-config-template($base-dir)
+    return        
+      file:write($local:user-config, $template) 
+  else 
+    trace((), 'Either no user config found at ' || $local:user-config || ' or base param not defined.')
 };
 
-declare function local:process-dependencies($config as document-node(), $base-dir as xs:string?) {
-  let $user-config := 
-    if(file:exists($local:user-config)) 
-    then file:read-text($local:user-config) => parse-xml() 
-    else if(boolean($base-dir)) then 
-      let $template := $local:user-config-template($base-dir)
-      return        
-        file:write($local:user-config, $template) 
-    else 
-      trace((), 'Either no user config found at ' || $local:user-config || ' or base param not defined.')
+(: Allows for the installation of a single package.  : Requires that a .xqpm with appropriate sources and
+ : parameters is defined
+ :)
+declare function local:install($package-name as xs:string) {
+  let $user-config := local:retrieve-user-config(())
+  let $sources := local:retrieve-sources((), $user-config) 
+  let $params := local:process-params((), $user-config) 
+  let $package := trace($sources[@name = $package-name]/@path)
+  return
+    try { local:init($package, $params, $sources) } catch * {()}
+};
+
+declare function local:init($config as document-node()) {
+  local:init($config, ())
+};
+
+declare function local:init($config as document-node(), $base-dir as xs:string?) {
+  let $user-config := local:retrieve-user-config($base-dir)
   let $sources := local:retrieve-sources($config, $user-config) 
   let $params := local:process-params($config, $user-config) 
   return
     if($user-config) then 
-      local:process-dependencies($config, $params, $sources)
+      local:init($config, $params, $sources)
     else 
-      local:process-dependencies($config, ())
+      local:init($config, ())
 };
 
-declare %private function local:process-dependencies($config as document-node(), $params as map(*), $sources as item()*) {
+declare %private function local:init($config as document-node(), $params as map(*), $sources as item()*) {
   let $sources := ($sources, $config/source)
   for $directory in $config//dependencies/directory
   let $dir-path := trace(mustache:render($directory/@path, $params), 'Processing directory: ')
@@ -123,7 +138,7 @@ declare %private function local:process-dependencies($config as document-node(),
             proc:system("git", ("clone", $path, $dest )),
             if(file:exists($dest || $local:config-name)) then ( 
               trace("Processing dependencies for " || $name),
-              local:process-dependencies(doc($dest || $local:config-name), $params, $sources))
+              local:init(doc($dest || $local:config-name), $params, $sources))
             else ()
           )
         else ( 
