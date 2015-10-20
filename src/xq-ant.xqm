@@ -116,12 +116,7 @@ declare %private function local:process-dependencies($config as document-node(),
      let $type := (($sources[@name = $name],$dep)/@type)[1]
      return try {
         if($type = 'command') then (
-          let $arguments := $dep/argument ! mustache:render(., $params)
-          return
-            (
-              trace((), 'Executing ' || ($dep/@path, $arguments) => string-join(' ')),
-              trace(proc:system($dep/@path, $arguments))
-            )
+          local:execute-command($dep)
         ) else if($type = 'git') then
           let $dest := $dir-path || '/' || $name || '/' return
           (
@@ -147,6 +142,14 @@ declare %private function local:process-dependencies($config as document-node(),
       } catch * {
         trace($dep, 'Processing failed: ' || $err:description || ' line: ' || $err:line-number)
       }
+    )
+};
+declare %private function local:execute-command($dep as element(dependency)) {
+  let $arguments := $dep/argument ! mustache:render(., $params)
+  return
+    (
+      trace('', 'Executing: ' || ($dep/@path, $arguments) => string-join(' ')),
+      trace(proc:system($dep/@path, $arguments))
     )
 };
 
