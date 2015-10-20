@@ -127,7 +127,7 @@ declare %private function local:init($config as document-node(), $params as map(
     (local:create-directories($dir-path),
      for $dep in $directory/dependency 
      let $name := trace($dep/@name, 'Processing: ')
-     let $path := ($dep/@path, $sources[@name = $name]/@path)[1] ! mustache:render(., $params)
+     let $path := (($dep/@path, $sources[@name = $name]/@path)[1]) ! mustache:render(., $params)
      let $type := (($sources[@name = $name],$dep)/@type)[1]
      return try {
         if($type = 'command') then (
