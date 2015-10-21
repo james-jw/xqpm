@@ -162,10 +162,11 @@ declare %private function local:init($config as document-node(), $params as map(
 };
 declare %private function local:execute-command($dep as element(dependency), $params as map(*)) {
   let $arguments := $dep/argument ! mustache:render(., $params)
+  let $path := mustache:render($dep/@path, $params)
   return
     (
       trace('', 'Executing: ' || ($dep/@path, $arguments) => string-join(' ')),
-      trace(proc:system($dep/@path, $arguments))
+      trace(proc:system($path, $arguments))
     )
 };
 
