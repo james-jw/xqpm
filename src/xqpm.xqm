@@ -24,6 +24,7 @@ declare variable $local:config-name := 'xqpm.xml';
 declare variable $local:user-config := fn:environment-variable('HOME') || '/.' || $local:config-name;
 declare variable $local:user-config-template := function ($base-dir) {
   <config>
+    <sources url="https://raw.githubusercontent.com/james-jw/xqpm/master/sources.xml" />
     <params>
       <param name="home">{fn:environment-variable('HOME')}</param>
       <param name="base">{$base-dir}</param>

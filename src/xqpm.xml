@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Represents an example xqpm collect file -->
-<config>
+<config name="http://xqpm" abbrev="xqpm" version="0.5">
   <sources url="https://raw.githubusercontent.com/james-jw/xqpm/master/sources.xml" />
   <dependencies>
     <directory path="{{repo}}">
       <dependency name="xqpm" />
-      <dependency name="xqpm-install" type="command" path="{{base}}/bin/basex">
+      <dependency name="install" type="command" path="{{base}}/bin/basex">
         <argument>-c"repo install '{{repo}}/xqpm/src/xqpm.xqm'"</argument>
       </dependency>
       <dependency name="xq-mustache" />
