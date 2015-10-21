@@ -87,7 +87,8 @@ declare function local:retrieve-user-config($base-dir as xs:string?) {
   else if(boolean($base-dir)) then 
     let $template := $local:user-config-template($base-dir)
     return        
-      file:write($local:user-config, $template) 
+      (file:write($local:user-config, $template),
+       file:read-text($local:user-config) => parse-xml())
   else 
     trace((), 'Either no user config found at ' || $local:user-config || ' or base param not defined.')
 };
