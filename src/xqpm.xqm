@@ -140,7 +140,10 @@ declare %private function local:init($config as document-node(), $params as map(
             proc:system("git", ("clone", $path, $dest )),
             if(file:exists($dest || $local:config-name)) then ( 
               trace("Processing dependencies for " || $name),
-              local:init(doc($dest || $local:config-name), $params, $sources))
+              copy $module := doc($dest || $local:config-name) 
+              modify (delete node $module//dependency[@name = $name]) 
+              return
+                local:init($module, $params, $sources))
             else ()
           )
         else ( 
