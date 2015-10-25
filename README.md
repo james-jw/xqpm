@@ -57,14 +57,14 @@ A xqpm.xml file defines where the source mapping files are located, as well as w
       </dependency>
       <dependency name="xq-mustache" />
     </directory>
-    <directory path="/usr/bin">
+    <directory path="{{base}}/bin">
       <dependency name="xqpm" path="https://raw.githubusercontent.com/james-jw/xqpm/master/src/xqpm" />
     </directory>
   </dependencies>
 </config>
 ```
 
-Notice how directory paths and other variables use ``{{mustache}}`` syntax to resolve values.
+Notice how directory paths and other variables use ``{{mustache}}`` syntax to resolve values. The values can come from the ``.xqpm.xml`` user configuration file, as well being defined in the dependency file itself. 
 
 The use cases for this module is not just XQuery module installation like the [expath package][0] spec, but is intended for configuring arbitrary directory structures and system variables.
 
