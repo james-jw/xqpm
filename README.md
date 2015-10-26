@@ -2,7 +2,7 @@
 Simple Ant like dependency managament script for populating service directories from remote repositories using purely xquery.
 
 ## How it works
-A local sources file found at `~/.xqpm.xml` will be created during the install. It outlines the directory structure for future installs. Take a look to see how it works!
+A local ``configuration`` file located at `~/.xqpm.xml` will be created during the install. It outlines the directory structure for future installs. Take a look to see how it works!
 
 Custom paths can be defined as necessary; however, the default 7 or so paths provided should remain. Although they can be altered to match your system, their name should remain defined for use with generic xqpm packages published on github.
 
