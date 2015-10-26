@@ -2,6 +2,7 @@
 <!-- Represents an example xqpm collect file -->
 <config name="http://xqpm" abbrev="xqpm" version="0.5">
   <sources url="https://raw.githubusercontent.com/james-jw/xqpm/master/sources.xml" />
+  <params></params>
   <dependencies>
     <directory path="{{repo}}">
       <dependency name="xqpm" />
