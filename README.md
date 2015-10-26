@@ -4,7 +4,7 @@ Simple Ant like dependency managament script for populating service directories 
 
 * [How it works](#how-it-works)
 * [Dependencies](#dependencies)
-* [Version 1 Beta](#version-v01-beta)
+* [Version v0.1 Beta](#version-v01-beta)
 * [Installation](#installation)
  + [Maunal Install](#manual-install)
 * [Usage](#usage)
