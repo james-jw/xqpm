@@ -1,6 +1,17 @@
 # xqpm
 Simple Ant like dependency managament script for populating service directories from remote repositories using purely xquery.
 
+
+* [How it works](#how-it-works)
+* [Dependencies](#dependencies)
+* [Version 1 Beta](#version-v01-beta)
+* [Installation](#installation)
+ + [Maunal Install](#manual-install)
+* [Usage](#usage)
+ + [Use Case](#use-case)
+ + [Sources](#sources)
+* [Shout Out](#shout-out)
+
 ## How it works
 A local ``configuration`` file located at `~/.xqpm.xml` will be created during the install. It outlines the directory structure for future installs. Take a look to see how it works!
 
@@ -30,7 +41,7 @@ Notice how the paths are dependent on eachother. The key paths are ``home`` and 
 ### Dependencies
 Currently, BaseX, git and unzip are the only required system dependencies.
 
-#### Version 1 Beta
+### Version v0.1 Beta
 This is the initial release and likley has many quirks to work out. Please report any issues you run into so I can harden the release.
 
 ### Installation
