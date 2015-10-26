@@ -1,6 +1,17 @@
 # xqpm
 Simple Ant like dependency managament script for populating service directories from remote repositories using purely xquery.
 
+   * [How it works](#how-it-works)
+   * [Dependencies](#dependencies)
+   * [Version v0.1 Beta](#version-v01-beta)
+   * [Installation](#installation)
+     * [Automated](#automated)
+     * [Manual](#manual)
+   * [Usage](#usage)
+     * [Use Case](#use-case)
+     * [Sources](#sources)
+   * [Shout Out!](#shout-out)
+
 ## How it works
 A local sources file found at `~/.xqpm.xml` will be created during the install. It outlines the directory structure for future installs. Take a look to see how it works!
 
@@ -26,13 +37,15 @@ If a package uses a path not defined, it can define the path in its own xqpm par
 
 Notice how the paths are dependent on eachother. The key paths are home and base. Unless your structure changes, nothing else should need to be modified.
 
-### Dependencies
+## Dependencies
 Currently, BaseX, git and unzip are the only required system dependencies.
 
-#### Version 1 Beta
+## Version v0.1 Beta
 This is the initial release and likley has many quirks to work out. Please report any issues you run into so I can harden the release.
 
-### Installation
+## Installation
+
+### Automated
 You can use xqpm to install itself!
 
 Within a bash command prompt type the following, providing the path to the BaseX directory for ``bpath``:
@@ -42,11 +55,11 @@ basex -bpath=/root/basex https://raw.githubusercontent.com/james-jw/xqpm/master/
 
 In the above example, BaseX would be intalled in the <code>/root</code> folder. 
 
-##### Manual Install
+### Manual
 * Clone this directory to your Basex/repo folder.
 * Add the <code>xqpm/src</code> folder to your path
 
-### Usage
+## Usage
 1) Create a <code>xqpm.xml</code>file to define the xqpm collection process. <br />
 2) In the same folder, execute: <code>xqpm</code> to retreive the dependencies.
 
@@ -72,20 +85,15 @@ A xqpm.xml file defines where the source mapping files are located, as well as w
 
 Notice how directory paths and other variables use ``{{mustache}}`` syntax to resolve values. The values come from the user ``.xqpm.xml`` configuration file, as well the dependency file being installed. 
 
-##### Use Case
+### Use Case
 The use cases for this module is not just XQuery module installation like the [expath package][0] spec, but is intended for configuring arbitrary directory structures and system variables.
 
-##### Sources
+### Sources
 An ``xqpm.xml`` file can reference multiple ``sources.xml`` files for aliasing package names. Although this is not required. It simplifies the configuration by reducing the need for defining dependency paths. See the xqpm.xml and sources.xml file for an example.
 
-#### Shout Out!
+## Shout Out!
 If you like what you see here please star the repo and follow me on github or linkedIn
 
 Happy forking!!
 
-<<<<<<< HEAD
-####Sources
-The collect.xml file can reference multiple sources.xml files for aliasing package names. This is not required but simplifies the configuration by reducing the need for defining dependency paths. See the collect.xml and sources.xml file for an example.
-=======
 [0]: http://expath.org/modules/pkg/
->>>>>>> 882bc795d1ab0e929b3101976e3e1d85a2024498
