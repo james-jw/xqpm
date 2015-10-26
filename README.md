@@ -10,6 +10,7 @@ If a package uses a path not defined, it can define the path in its own xqpm par
 
 ```xml
 <config>
+    <sources url="https://raw.githubusercontent.com/james-jw/xqpm/master/sources.xml" />
     <params>
       <param name="home">~/root</param>
       <param name="base">~/root/basex</param>
