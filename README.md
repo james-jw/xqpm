@@ -4,7 +4,7 @@ Simple Ant like dependency managament script for populating service directories 
 ## How it works
 A local ``configuration`` file located at `~/.xqpm.xml` will be created during the install. It outlines the directory structure for future installs. Take a look to see how it works!
 
-Custom paths can be defined as necessary; however, the default 7 or so paths provided should remain. Although they can be altered to match your system, their name should remain defined for use with generic xqpm packages published on github.
+Custom paths can be defined as necessary; however, the default paths provided should remain. Although they can be altered to match your system, their name should remain defined for use with generic xqpm packages published on github.
 
 If a package uses a path not defined, it can define the path in its own xqpm parameters. Here is an example of what the default ``.xqpm.xml`` configuration file will contain:
 
@@ -24,7 +24,7 @@ If a package uses a path not defined, it can define the path in its own xqpm par
   </config>
   ```
 
-Notice how the paths are dependent on eachother. The key paths are home and base. Unless your structure changes, nothing else should need to be modified.
+Notice how the paths are dependent on eachother. The key paths are ``home`` and ``base``. Unless your structure changes, nothing else should need to be modified.
 
 ### Dependencies
 Currently, BaseX, git and unzip are the only required system dependencies.
@@ -50,7 +50,7 @@ In the above example, BaseX would be intalled in the <code>/root</code> folder.
 1) Create a <code>xqpm.xml</code>file to define the xqpm collection process. <br />
 2) In the same folder, execute: <code>xqpm</code> to retreive the dependencies.
 
-A xqpm.xml file defines where the source mapping files are located, as well as what dependencies are required and where to place them. Here is an example and dependencie file for this module:
+A xqpm.xml file defines where the source mapping files are located, as well as what dependencies are required and where to place them. Here is an example, and in fact, the dependency file for this module:
 
 ```xml
 <config>
@@ -70,7 +70,7 @@ A xqpm.xml file defines where the source mapping files are located, as well as w
 </config>
 ```
 
-Notice how directory paths and other variables use ``{{mustache}}`` syntax to resolve values. The values come from the user ``.xqpm.xml`` configuration file, as well the dependency file being installed. 
+Notice how directory paths and other variables use ``{{mustache}}`` syntax to resolve values. The values come from the user ``.xqpm.xml`` configuration file, as well as the dependency file being installed. 
 
 ##### Use Case
 The use cases for this module is not just XQuery module installation like the [expath package][0] spec, but is intended for configuring arbitrary directory structures and system variables.
