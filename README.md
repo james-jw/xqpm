@@ -83,9 +83,4 @@ If you like what you see here please star the repo and follow me on github or li
 
 Happy forking!!
 
-<<<<<<< HEAD
-####Sources
-The collect.xml file can reference multiple sources.xml files for aliasing package names. This is not required but simplifies the configuration by reducing the need for defining dependency paths. See the collect.xml and sources.xml file for an example.
-=======
 [0]: http://expath.org/modules/pkg/
->>>>>>> 882bc795d1ab0e929b3101976e3e1d85a2024498
